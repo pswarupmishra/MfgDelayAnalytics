@@ -47,10 +47,14 @@ function extractConfig(children) {
 
 function TooltipBox({ point }) {
   if (!point) return null;
+  const hasMatchQuality = point.values.some(row => String(row.name).toLowerCase().includes("match") || String(row.name).toLowerCase().includes("similarity"));
   return (
     <div className="svg-chart-tooltip" style={{ left: point.left, top: point.top }}>
       <b>{point.label}</b>
+      {point.description && <small>Representative delay</small>}
+      {point.description && <p>{point.description}</p>}
       {point.values.map(row => <span key={row.name}>{row.name}: {fmt(row.value)}</span>)}
+      {hasMatchQuality && <em>Match quality shows how consistently the records in this group describe the same kind of delay. Higher means tighter, cleaner grouping.</em>}
     </div>
   );
 }
@@ -86,7 +90,7 @@ function VerticalBarChart({ data, children, margin = {} }) {
           const w = Math.max(3, (value / max) * barW);
           const label = safe(row[nameKey]);
           return (
-            <g key={`${label}-${index}`} onMouseEnter={() => setHover({ left: left + Math.min(w + 12, barW - 120), top: y + 6, label, values: [{ name: valueKey, value }] })} onMouseLeave={() => setHover(null)}>
+            <g key={`${label}-${index}`} onMouseEnter={() => setHover({ left: left + Math.min(w + 12, barW - 120), top: y + 6, label, description: safe(row.description || row.representative_description), values: [{ name: valueKey, value }] })} onMouseLeave={() => setHover(null)}>
               <text x={left - 12} y={y + 20} textAnchor="end" fontSize="12" fill="#334155">{label.slice(0, 24)}</text>
               <rect x={left} y={y + 6} width={w} height="18" fill="#0b63a7" rx="5" />
               <text x={left + w + 7} y={y + 20} fontSize="12" fill="#073763">{fmt(value)}</text>
@@ -143,7 +147,7 @@ function BarLikeChart({ data = [], children, variant = "bar", layout, margin = {
           const text = safe(row[label]);
           const values = keys.slice(0, 2).map(key => ({ name: key, value: row[key] }));
           return (
-            <g key={`${text}-${index}`} onMouseEnter={() => setHover({ left: x(index) + 10, top: Math.min(y(row[primaryKey]) + 8, height - 98), label: text, values })} onMouseLeave={() => setHover(null)}>
+            <g key={`${text}-${index}`} onMouseEnter={() => setHover({ left: x(index) + 10, top: Math.min(y(row[primaryKey]) + 8, height - 118), label: text, description: safe(row.description || row.representative_description), values })} onMouseLeave={() => setHover(null)}>
               <rect x={x(index) - Math.max(12, barW / 2)} y={m.top} width={Math.max(24, barW)} height={innerH} fill="transparent" />
               <text x={x(index)} y={height - m.bottom + 24} textAnchor="end" transform={`rotate(-35 ${x(index)} ${height - m.bottom + 24})`} fontSize="11" fill="#475569">{text.slice(0, 14)}</text>
             </g>

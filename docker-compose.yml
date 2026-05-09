@@ -1,0 +1,18 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    image: ${DOCKERHUB_USERNAME:-local}/unified-delay-backend:${TAG:-latest}
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_ROOT: ""
+    image: ${DOCKERHUB_USERNAME:-local}/unified-delay-frontend:${TAG:-latest}
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"

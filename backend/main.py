@@ -31,6 +31,7 @@ MOUNTED_APPS = {
     "association": load_subapp("association", "association"),
     "box-survival": load_subapp("box_survival", "box_survival"),
     "eda": load_subapp("eda", "eda"),
+    "grouping": load_subapp("grouping", "grouping"),
     "sequential": load_subapp("sequential", "sequential"),
     "trend": load_subapp("trend", "trend"),
 }
@@ -38,6 +39,7 @@ MOUNTED_APPS = {
 app.mount("/api/association", MOUNTED_APPS["association"])
 app.mount("/api/box", MOUNTED_APPS["box-survival"])
 app.mount("/api/eda", MOUNTED_APPS["eda"])
+app.mount("/api/grouping", MOUNTED_APPS["grouping"])
 app.mount("/api/sequential", MOUNTED_APPS["sequential"])
 app.mount("/api/trend", MOUNTED_APPS["trend"])
 
