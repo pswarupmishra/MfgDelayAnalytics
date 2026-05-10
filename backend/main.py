@@ -28,6 +28,7 @@ def load_subapp(name: str, folder: str):
 
 
 MOUNTED_APPS = {
+    "anomaly": load_subapp("anomaly", "anomaly"),
     "association": load_subapp("association", "association"),
     "box-survival": load_subapp("box_survival", "box_survival"),
     "eda": load_subapp("eda", "eda"),
@@ -37,6 +38,7 @@ MOUNTED_APPS = {
 }
 
 app.mount("/api/association", MOUNTED_APPS["association"])
+app.mount("/api/anomaly", MOUNTED_APPS["anomaly"])
 app.mount("/api/box", MOUNTED_APPS["box-survival"])
 app.mount("/api/eda", MOUNTED_APPS["eda"])
 app.mount("/api/grouping", MOUNTED_APPS["grouping"])

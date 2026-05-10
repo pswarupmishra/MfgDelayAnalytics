@@ -1,6 +1,7 @@
 
 import React, { useMemo, useState } from 'react';
-import { Boxes, ChartNoAxesCombined, GitMerge, LineChart, Network, Workflow } from 'lucide-react';
+import { Boxes, ChartNoAxesCombined, GitMerge, LineChart, Network, ShieldAlert, Workflow } from 'lucide-react';
+import AnomalyAdvisor from './components/AnomalyAdvisor.jsx';
 import AssociationMining from './components/AssociationMining.jsx';
 import BoxSurvival from './components/BoxSurvival.jsx';
 import DelayGrouping from './components/DelayGrouping.jsx';
@@ -14,6 +15,7 @@ const APPS = [
   { key: 'trend', title: 'Trend Advisor', subtitle: 'Top 3 slope-based combinations', icon: LineChart, Component: TrendAdvisor },
   { key: 'eda', title: 'Executive EDA', subtitle: 'Delay analytics dashboard', icon: ChartNoAxesCombined, Component: EDADashboard },
   { key: 'grouping', title: 'Delay Grouping', subtitle: 'Cluster similar descriptions', icon: GitMerge, Component: DelayGrouping },
+  { key: 'anomaly', title: 'Anomaly Advisor', subtitle: 'Duration outliers by combo', icon: ShieldAlert, Component: AnomalyAdvisor },
   { key: 'association', title: 'Delay Association', subtitle: 'Market-basket style rules', icon: Network, Component: AssociationMining },
   { key: 'sequential', title: 'Sequential Mining', subtitle: 'Common delay sequences', icon: Workflow, Component: SequentialMining },
 ];
